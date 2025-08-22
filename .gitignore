@@ -1,0 +1,20 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.coverage*
+
+# Virtual environments
+.venv
+
+# Editor-related files
+*.swp
+
+# OS files
+.DS_Store
+
+# MKDocs
+site

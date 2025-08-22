@@ -1,0 +1,63 @@
+[project]
+name = "drydantic"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Philip Salvaggio", email = "salvaggio.philip@gmail.com" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "pydantic>=2.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.8.3,<0.9.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "coveralls>=4.0.1",
+    "griffe-pydantic>=1.1.6",
+    "mike>=2.1.3",
+    "mkdocs-material>=9.6.18",
+    "mkdocstrings[python]>=0.30.0",
+    "pip>=25.2",
+    "pre-commit>=4.3.0",
+    "pytest>=8.4.1",
+    "pytest-cov>=6.2.1",
+    "pytest-xdist>=3.8.0",
+    "python-lsp-server>=1.13.0",
+    "ruff>=0.12.10",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "--cov=drydantic --cov-report=html --cov-branch"
+
+[tool.ruff]
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "D400", # docstrings end in .
+    "ANN002", # Annotations for *args
+    "ANN003", # Annotations for *kwargs
+    "ANN401", # Any is allowed (before validator)
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+[tool.ruff.lint.extend-per-file-ignores]
+"tests/**/*.py" = [
+    "S101", # asserts allowed in tests
+    "ARG", # Unused function args -> (fixtures can be unused)
+    "FBT", # Don't care about booleans as positional arguments in tests, e.g. via @pytest.mark.parametrize()
+    "PLR2004", # Magic value used in comparison
+]
+"**/cli.py" = [
+    "PLC0415", # imports in CLI functions improve load times
+]
